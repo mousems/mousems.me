@@ -11,6 +11,21 @@ function Go($plain , $key){
 		return "Error.";
 	}
 
+	echo "Input:".$plain."<br />";
+
+	preg_match_all("/([A-Z])/", $plain, $matches);
+	// make $plain break into piceses
+
+	echo "Output:";
+	foreach ($matches[1] as $key1 => $value) {
+		$tmp = ord($value)+$key;
+		if ($tmp>ord("Z")) {
+			$tmp = $tmp - 26;
+		}
+		$tmp = chr($tmp);
+		echo $tmp;
+	}
+
 
 }
 
