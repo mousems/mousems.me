@@ -102,12 +102,35 @@ function Go($plain , $key){
 			array($key_arr[20],$key_arr[21],$key_arr[22],$key_arr[23],$key_arr[24])
 		);
 
-	// (x,y) = (index mod 5 , (int)(index / 5) )
+	// (x,y) = (index mod 5 , ((index-x)/ 5) )
+	// $key_table[y][x]
 
 
-	print_r($key_table);
+	$ciphertext="";
+	foreach ($plain_withx as $key1 => $value) {
+		$x1 = array_search($value[0], $key_arr) % 5;
+		$y1 = (array_search($value[0], $key_arr)-$x1)/ 5;
+		$x2 = array_search($value[1], $key_arr) % 5;
+		$y2 = (array_search($value[1], $key_arr)-$x1)/ 5;
 
-	echo "Output:";
+
+		$offset = 1;
+
+		if ($x1==$x2 ) {
+			$ciphertext .= $key_table[$y1][($x1+$offset) % 5];
+			$ciphertext .= $key_table[$y2][($x2+$offset) % 5];
+		}elseif($y1==$y2){
+			$ciphertext .= $key_table[($y1+$offset) % 5][$x1];
+			$ciphertext .= $key_table[($y2+$offset) % 5][$x2];
+
+		}else{
+
+			$ciphertext .= $key_table[$y2][$x1];
+			$ciphertext .= $key_table[$y1][$x2];
+		}
+	}
+
+	echo "Output:".$ciphertext;
 
 
 }
