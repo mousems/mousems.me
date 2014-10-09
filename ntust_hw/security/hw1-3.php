@@ -80,9 +80,32 @@ function Go($plain , $key){
 	$plain_withx = $tmp;
 	//plain final
 
-	
-	print_r($plain_withx);
+	$key_arr = array();
 
+	foreach (str_split($key) as $key1 => $value) {
+		if (array_search($value ,$key_arr)===FALSE && $value!="j") {
+			array_push($key_arr, $value);
+		}
+	}
+
+	foreach (str_split("abcdefghiklmnopqrstuvwxyz") as $key1 => $value) {
+		if (array_search($value, $key_arr)===FALSE) {
+			array_push($key_arr, $value);
+		}
+	}
+	
+	$key_table = array(
+			array($key_arr[0],$key_arr[1],$key_arr[2],$key_arr[3],$key_arr[4]),
+			array($key_arr[5],$key_arr[6],$key_arr[7],$key_arr[8],$key_arr[9]),
+			array($key_arr[10],$key_arr[11],$key_arr[12],$key_arr[13],$key_arr[14]),
+			array($key_arr[15],$key_arr[16],$key_arr[17],$key_arr[18],$key_arr[19]),
+			array($key_arr[20],$key_arr[21],$key_arr[22],$key_arr[23],$key_arr[24])
+		);
+
+	// (x,y) = (index mod 5 , (int)(index / 5) )
+
+
+	print_r($key_table);
 
 	echo "Output:";
 
